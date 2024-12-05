@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package edu.ijse.mvc.view;
+import edu.ijse.mvc.dto.ItemDto;
 
 /**
  *
@@ -232,9 +233,11 @@ public class ItemView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
+        
     private void txtCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodeActionPerformed
         // TODO add your handling code here:
+        saveItem();
     }//GEN-LAST:event_txtCodeActionPerformed
 
     private void txtDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescriptionActionPerformed
@@ -289,4 +292,17 @@ public class ItemView extends javax.swing.JFrame {
     private javax.swing.JTextField txtQoH;
     private javax.swing.JTextField txtUnitPrice;
     // End of variables declaration//GEN-END:variables
-}
+    private void saveItem(){
+        ItemDto itemDto;
+        itemDto = new ItemDto(
+                txtCode.getText(),
+                txtDescription.getText(),
+                txtPack.getText(),
+                Double.parseDouble(txtUnitPrice.getText()),
+                Integer.parseInt(txtQoH.getText())
+        );
+        
+        System.out.println(itemDto.toString());
+    }  
+    }
+
