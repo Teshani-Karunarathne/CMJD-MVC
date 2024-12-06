@@ -4,12 +4,15 @@
  */
 package edu.ijse.mvc.view;
 import edu.ijse.mvc.dto.ItemDto;
+import edu.ijse.mvc.controller.ItemController;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author 94760
  */
 public class ItemView extends javax.swing.JFrame {
+    private ItemController itemController = new ItemController();
 
     /**
      * Creates new form ItemView
@@ -237,7 +240,7 @@ public class ItemView extends javax.swing.JFrame {
         
     private void txtCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodeActionPerformed
         // TODO add your handling code here:
-        saveItem();
+        
     }//GEN-LAST:event_txtCodeActionPerformed
 
     private void txtDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescriptionActionPerformed
@@ -257,7 +260,8 @@ public class ItemView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQoHActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        // TODO add your hadling code here:
+        saveItem();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -298,11 +302,18 @@ public class ItemView extends javax.swing.JFrame {
                 txtCode.getText(),
                 txtDescription.getText(),
                 txtPack.getText(),
-                Double.parseDouble(txtUnitPrice.getText()),
-                Integer.parseInt(txtQoH.getText())
+                Double.valueOf(txtUnitPrice.getText()),
+                Integer.valueOf(txtQoH.getText())
         );
         
         System.out.println(itemDto.toString());
+        try {
+            String resp = itemController.saveItem(itemDto);
+            JOptionPane.showMessageDialog(this, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }  
     }
 
