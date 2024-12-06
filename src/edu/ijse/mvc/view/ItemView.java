@@ -6,6 +6,8 @@ package edu.ijse.mvc.view;
 import edu.ijse.mvc.dto.ItemDto;
 import edu.ijse.mvc.controller.ItemController;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +21,7 @@ public class ItemView extends javax.swing.JFrame {
      */
     public ItemView() {
         initComponents();
+        loadTable();
     }
 
     /**
@@ -49,7 +52,7 @@ public class ItemView extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblItem = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,7 +155,8 @@ public class ItemView extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblItem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tblItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -163,7 +167,7 @@ public class ItemView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tblItem);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -229,9 +233,9 @@ public class ItemView extends javax.swing.JFrame {
                     .addComponent(btnSave)
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -283,19 +287,20 @@ public class ItemView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblCode;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblPack;
     private javax.swing.JLabel lblQoH;
     private javax.swing.JLabel lblUnitPrice;
+    private javax.swing.JTable tblItem;
     private javax.swing.JTextField txtCode;
     private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtPack;
     private javax.swing.JTextField txtQoH;
     private javax.swing.JTextField txtUnitPrice;
     // End of variables declaration//GEN-END:variables
+    
     private void saveItem(){
         ItemDto itemDto;
         itemDto = new ItemDto(
@@ -313,7 +318,28 @@ public class ItemView extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
+        }}
+      public void loadTable(){
+        try {
+            String columns[] = {"Item Code", "Item Description", "Pack Size", "Unit Price", "QoH"};
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            tblItem.setModel(dtm);
+            
+            ArrayList<ItemDto> itemDtos = itemController.getAllItem();
+            for (ItemDto itemDto : itemDtos) {
+                Object[] rowData = {itemDto.getCode(), itemDto.getDescription(), itemDto.getPackSize(), itemDto.getUntPrice(), itemDto.getQoh()};
+                dtm.addRow(rowData);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }  
     }
+    }  
+    
 
