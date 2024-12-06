@@ -315,6 +315,8 @@ public class ItemView extends javax.swing.JFrame {
         try {
             String resp = itemController.saveItem(itemDto);
             JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -339,6 +341,13 @@ public class ItemView extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+    }
+     private void clearForm() {
+        txtCode.setText("");
+        txtDescription.setText("");
+        txtPack.setText("");
+        txtUnitPrice.setText("");
+        txtQoH.setText("");
     }
     }  
     
