@@ -167,6 +167,11 @@ public class ItemView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblItemMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblItem);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -276,6 +281,11 @@ public class ItemView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void tblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblItemMouseClicked
+        // TODO add your handling code here:
+        searchItem();
+    }//GEN-LAST:event_tblItemMouseClicked
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -348,6 +358,24 @@ public class ItemView extends javax.swing.JFrame {
         txtPack.setText("");
         txtUnitPrice.setText("");
         txtQoH.setText("");
+    }
+      private void searchItem() {
+        String itemCode = tblItem.getValueAt(tblItem.getSelectedRow(), 0).toString();
+        try {
+            ItemDto itemDto = itemController.searchItem(itemCode);
+            if(itemDto != null){
+                txtCode.setText(itemDto.getCode());
+                txtDescription.setText(itemDto.getDescription());
+                txtPack.setText(itemDto.getPackSize());
+                txtUnitPrice.setText(Double.toString(itemDto.getUntPrice()));
+                txtQoH.setText(Integer.toString(itemDto.getQoh()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Item not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
     }  
     

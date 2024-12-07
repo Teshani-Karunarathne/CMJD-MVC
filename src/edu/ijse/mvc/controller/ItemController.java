@@ -21,5 +21,8 @@ public class ItemController {
     public ArrayList<ItemDto> getAllItem() throws Exception{
         return itemModel.getAllItem();
     }
+     public ItemDto searchItem(String itemCode) throws Exception{
+        return itemModel.searchItem(itemCode);
+    }
     
 }
