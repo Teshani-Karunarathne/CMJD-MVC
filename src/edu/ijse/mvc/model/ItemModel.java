@@ -41,7 +41,7 @@ public class ItemModel {
         return statement.executeUpdate() > 0 ? "Successfully Updated" : "Fail";
     }
     
-    public String updateItem(String code) throws Exception{
+    public String deleteItem(String code) throws Exception{
         String sql = "DELETE from item WHERE ItemCode=?";
         Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);

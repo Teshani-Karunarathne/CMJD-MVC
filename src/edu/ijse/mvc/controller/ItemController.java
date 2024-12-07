@@ -18,11 +18,20 @@ public class ItemController {
     public String saveItem(ItemDto itemDto) throws Exception{
         return itemModel.saveItem(itemDto);
     }
+    public String updateItem(ItemDto itemDto) throws Exception{
+        return itemModel.updateItem(itemDto);
+    }
+    
+    public String deleteItem(String code) throws Exception{
+        return itemModel.deleteItem(code);
+    }
     public ArrayList<ItemDto> getAllItem() throws Exception{
         return itemModel.getAllItem();
     }
      public ItemDto searchItem(String itemCode) throws Exception{
         return itemModel.searchItem(itemCode);
     }
+
+    
     
 }

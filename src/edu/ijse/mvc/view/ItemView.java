@@ -274,11 +274,11 @@ public class ItemView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        updateItem();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        deleteItem();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblItemMouseClicked
@@ -372,6 +372,37 @@ public class ItemView extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Item not found");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+      private void updateItem(){
+        ItemDto itemDto = new ItemDto(
+                txtCode.getText(),
+                txtDescription.getText(),
+                txtPack.getText(),
+                Double.valueOf(txtUnitPrice.getText()),
+                Integer.valueOf(txtQoH.getText())
+        );
+        
+        try {
+            String resp = itemController.updateItem(itemDto);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    private void deleteItem(){ 
+        try {
+            String resp = itemController.deleteItem(txtCode.getText());
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
